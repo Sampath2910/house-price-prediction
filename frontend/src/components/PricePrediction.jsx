@@ -33,7 +33,7 @@ export default function PricePrediction() {
     setError("");
     setPrice(null);
     try {
-      const res = await fetch("http://127.0.0.1:5000/predict", {
+      const res = await fetch("https://house-price-prediction-7sk1.onrender.com/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
