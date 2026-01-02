@@ -201,4 +201,5 @@ Sent from HomeValue AI contact form
 # START SERVER
 # =========================================================
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
+
