@@ -55,18 +55,6 @@ mail = Mail(app)
 # LOAD MODEL
 # =========================================================
 
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1NsNveeRXVVTviXdJEGVSRop58vfLNDwF"
-
-if not os.path.exists(MODEL_PATH):
-    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
-    print("⬇️ Downloading model...")
-    r = requests.get(MODEL_URL)
-    r.raise_for_status()
-    with open(MODEL_PATH, "wb") as f:
-        f.write(r.content)
-    print("✅ Model downloaded")
-
-
 try:
     pipeline = joblib.load(MODEL_PATH)
     print("✅ Model loaded successfully from:", MODEL_PATH)
