@@ -29,10 +29,6 @@ CORS(app, resources={
     }
 })
 
-
-# =========================================================
-# EMAIL CONFIGURATION
-# =========================================================
 # =========================================================
 # EMAIL CONFIGURATION
 # =========================================================
@@ -44,8 +40,12 @@ app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv("MAIL_USERNAME")
 
+MAIL_ENABLED = True
+
 if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
-    raise RuntimeError("❌ MAIL_USERNAME or MAIL_PASSWORD not set in environment variables")
+    print("⚠️ Email disabled: MAIL credentials not set")
+    MAIL_ENABLED = False
+
 
 mail = Mail(app)
 
@@ -53,6 +53,20 @@ mail = Mail(app)
 # =========================================================
 # LOAD MODEL
 # =========================================================
+import requests
+
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1NsNveeRXVVTviXdJEGVSRop58vfLNDwF"
+
+if not os.path.exists(MODEL_PATH):
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+    print("⬇️ Downloading model...")
+    r = requests.get(MODEL_URL)
+    r.raise_for_status()
+    with open(MODEL_PATH, "wb") as f:
+        f.write(r.content)
+    print("✅ Model downloaded")
+
+
 try:
     pipeline = joblib.load(MODEL_PATH)
     print("✅ Model loaded successfully from:", MODEL_PATH)
@@ -181,8 +195,12 @@ def contact():
         subject = data.get("subject", "New Inquiry")
         message = data.get("message", "")
 
-        if not email or not message:
-            return jsonify({"status": "error", "message": "Email and message are required"}), 400
+        if not MAIL_ENABLED:
+            return jsonify({
+                "status": "error",
+                "message": "Email service is temporarily unavailable"
+         }), 503
+
 
         msg = Message(
             subject=f"📬 New Contact from {name or 'Unknown'} - {subject}",
