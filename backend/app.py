@@ -1,5 +1,6 @@
 import os
 import joblib
+import requests
 import pandas as pd
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -53,7 +54,6 @@ mail = Mail(app)
 # =========================================================
 # LOAD MODEL
 # =========================================================
-import requests
 
 MODEL_URL = "https://drive.google.com/uc?export=download&id=1NsNveeRXVVTviXdJEGVSRop58vfLNDwF"
 
