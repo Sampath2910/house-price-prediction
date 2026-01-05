@@ -19,8 +19,20 @@ print("🔍 MODEL_PATH:", MODEL_PATH)
 # FLASK APP
 # =========================================================
 app = Flask(__name__, static_folder=FRONTEND_BUILD, static_url_path="/")
-CORS(app)
+from flask_cors import CORS
 
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "https://house-price-prediction-frontend-w35f.onrender.com"
+        ]
+    }
+})
+
+
+# =========================================================
+# EMAIL CONFIGURATION
+# =========================================================
 # =========================================================
 # EMAIL CONFIGURATION
 # =========================================================
@@ -28,13 +40,15 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 
-import os
-
 app.config['MAIL_USERNAME'] = os.getenv("MAIL_USERNAME")
 app.config['MAIL_PASSWORD'] = os.getenv("MAIL_PASSWORD")
-app.config['MAIL_DEFAULT_SENDER'] = ('HomeValue AI', os.getenv("MAIL_USERNAME"))
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv("MAIL_USERNAME")
+
+if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
+    raise RuntimeError("❌ MAIL_USERNAME or MAIL_PASSWORD not set in environment variables")
 
 mail = Mail(app)
+
 
 # =========================================================
 # LOAD MODEL
