@@ -2,6 +2,7 @@ import os
 import joblib
 import requests
 import pandas as pd
+import threading
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -186,14 +187,12 @@ def contact():
         if not MAIL_ENABLED:
             return jsonify({
                 "status": "error",
-                "message": "Email service is temporarily unavailable"
-         }), 503
-
+                "message": "Email service temporarily unavailable"
+            }), 503
 
         msg = Message(
             subject=f"📬 New Contact from {name or 'Unknown'} - {subject}",
             recipients=["akkapallysampath12@gmail.com"],
-  # <-- change this to your real receiving address
             body=f"""
 You have received a new contact form submission:
 
@@ -208,10 +207,21 @@ Sent from HomeValue AI contact form
 """
         )
 
-        mail.send(msg)
-        print("✅ Email sent successfully!")
+        # ✅ SEND ASYNC (NO TIMEOUT)
+        def send_email_async(app, msg):
+            with app.app_context():
+                mail.send(msg)
 
-        return jsonify({"status": "success", "message": "Message sent successfully!"})
+        threading.Thread(
+            target=send_email_async,
+            args=(app, msg),
+            daemon=True
+        ).start()
+
+        return jsonify({
+            "status": "success",
+            "message": "Message sent successfully!"
+        })
 
     except Exception as e:
         print("❌ Email sending failed:", e)
