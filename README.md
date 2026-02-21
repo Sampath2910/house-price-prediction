@@ -1,71 +1,61 @@
-<h1 align="center">🏠 House Price Prediction System</h1>
-<h3 align="center">Full Stack Web Application with Machine Learning Integration</h3>
+<p align="center">
+
+<img src="https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python" />
+<img src="https://img.shields.io/badge/Framework-Flask-black?style=for-the-badge&logo=flask" />
+<img src="https://img.shields.io/badge/Machine%20Learning-ScikitLearn-orange?style=for-the-badge&logo=scikitlearn" />
+<img src="https://img.shields.io/badge/Deployment-Render-purple?style=for-the-badge&logo=render" />
+<img src="https://img.shields.io/github/license/Sampath2910/house-price-prediction?style=for-the-badge" />
+
+</p>
+
+<h1 align="center">House Price Prediction System</h1>
+<h3 align="center">Full Stack Regression-Based Property Valuation Platform</h3>
 
 <p align="center">
-🚀 <a href="https://house-price-prediction-7sk1.onrender.com"><b>Live Demo</b></a>
+<a href="https://house-price-prediction-7sk1.onrender.com"><strong>Live Demo</strong></a>
 </p>
 
 ---
 
-## 📌 Overview
+## Overview
 
-House Price Prediction is a production-style web application that predicts property prices based on user-provided features such as location, area, number of bedrooms, and other housing attributes.
-
-This project demonstrates the complete workflow of:
-
-- Data preprocessing
-- Model training and evaluation
-- Backend API integration
-- Frontend interaction
-- Cloud deployment
-
-The system integrates a trained machine learning regression model with a Flask backend to deliver real-time predictions through a web interface.
+A full-stack web application that predicts real estate prices using a trained regression model. The system integrates data preprocessing, model inference, and real-time prediction delivery via a Flask backend.
 
 ---
 
-## 🧠 Machine Learning Details
+## System Architecture
 
-- Model Type: Regression
-- Libraries Used: Scikit-learn, Pandas, NumPy
-- Data preprocessing: Feature scaling and encoding
-- Output: Predicted property price
-
-The model was trained using structured housing data and optimized for prediction accuracy.
+User → Web Form → Flask Backend → Feature Processing → Trained Regression Model → Predicted Price Output
 
 ---
 
-## 🛠 Tech Stack
+## Machine Learning Details
 
-Backend:
-- Python
-- Flask
-
-Machine Learning:
-- Scikit-learn
-- Pandas
-- NumPy
-
-Frontend:
-- HTML
-- CSS
-- JavaScript
-
-Deployment:
-- Render
+- Algorithm: Regression Model (Scikit-learn)
+- Feature Engineering: Encoding & Scaling
+- Output: Estimated Property Price
 
 ---
 
-## ⚙️ System Workflow
+## Tech Stack
 
-1. User enters housing details.
-2. Backend processes input data.
-3. Data is formatted and passed to trained ML model.
-4. Model returns predicted house price.
-5. Result is displayed in the UI.
+Backend: Python, Flask  
+Machine Learning: Scikit-learn, Pandas, NumPy  
+Frontend: HTML, CSS, JavaScript  
+Deployment: Render  
 
 ---
 
-## 💻 Run Locally
+## Workflow
+
+1. User inputs property features.
+2. Backend processes structured data.
+3. Model predicts price.
+4. Result displayed in UI.
+
+---
+
+## Run Locally
 
 ```bash
 git clone https://github.com/Sampath2910/house-price-prediction.git
